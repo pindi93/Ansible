@@ -1,0 +1,4 @@
+- hosts: node
+  tasks:
+     - debug:
+         var: ansible_facts

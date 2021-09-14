@@ -1,0 +1,9 @@
+- hosts: node
+  become: yes
+  tasks:
+    - name: install httpd
+      yum: name=nginx state=present
+      notify: restart service
+  handlers:
+    - name: restart service
+      service: name=nginx state=restarted
