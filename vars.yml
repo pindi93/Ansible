@@ -1,0 +1,12 @@
+- hosts: node
+  #vars:
+  #pkg: hi
+  become: yes
+  gather_facts: no
+  #vars:
+  #pkg: hi
+  tasks:
+      - name: print value
+        raw: echo "{{pkg}}"
+        register: output
+      - debug: var=output.stdout_lines

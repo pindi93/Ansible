@@ -1,0 +1,13 @@
+- hosts: node
+  become: true
+  vars_files:
+      - vault-pass.yml
+  tasks:
+     - name: install git
+       yum: name=git state=latest
+     - name: clone a repo
+       git:
+         repo: https://pindi93:{{ password }}@github.com/pindi93/Terraform.git
+         dest: /opt/newfolder
+
+

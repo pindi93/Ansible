@@ -1,0 +1,29 @@
+- hosts: node
+  connection: ssh
+  remote_user: ansadmn
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Execute All Installations
+    yum: name={{ item }} state={{ action }}
+    with_items:
+      - httpd
+      - wget
+    notify:
+      - CopySiteFiles
+      - RestartHTTPD
+      - WaitForSite
+      - TestSite
+      - DisplayResults
+  handlers:
+  - name: CopySiteFiles
+    copy: src=../files/index.html dest=/var/www/html/index.html owner=root group=root mode=0655 backup=yes
+  - name: RestartHTTPD
+    service: name=httpd state=restarted
+  - name: WaitForSite
+    wait_for: host={{ ansible_nodename }} port=80 delay=5
+  - name: TestSite
+    shell: /usr/bin/wget http://localhost
+    register: site_result
+  - name: DisplayResults
+    debug: var=site_result

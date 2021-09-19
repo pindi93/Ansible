@@ -1,0 +1,16 @@
+-  hosts: node
+   tasks:
+      - name: Execute the Uptime command over Command module
+        register: uptimeoutput
+        command: "uptime"
+        when: ansible_os_family == "RedHat"
+
+      - debug:
+          var: uptimeoutput.stdout_lines
+
+      - name: Execute the Uptime command over Command module
+        register: uptimeoutput1
+        command: "uptime"
+        when: ansible_os_family == "Debian"
+      - debug:
+          var: uptimeoutput1.stdout_lines

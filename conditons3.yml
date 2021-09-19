@@ -1,0 +1,8 @@
+ - hosts: node
+   tasks:
+           - name: get stat of the file
+             stat: path=/home/ansadmn/file1
+             register: check
+           - debug: var=check
+           - shell: touch /home/ansadmn/file1
+             when: not check.stat.exists

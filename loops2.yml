@@ -1,0 +1,18 @@
+- hosts: node
+  become: yes
+  tasks:
+          - name: create users
+            user: name="{{ item }}" state=present
+            with_items:
+                    - jhon
+                    - sam
+                    - ram
+          - name: create users and add to groups
+            user: name="{{item.name}}" groups="{{item.group}}" state=present
+            with_items:
+                    - { name: testuser1, group: wheel}
+                    - {name: testuser2, group: wheel}
+          - debug:
+                  msg: "{{ item }}"
+            with_file:
+                    - example_file

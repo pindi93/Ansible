@@ -1,0 +1,12 @@
+ - hosts: node
+   vars:
+       greet: hello
+   tasks: 
+      - name: use of temlate
+        template:
+              src=./test.j2
+              dest=home/ansadmn/text.txt
+        register: output
+        ignore_errors: yes
+      - debug: var=output
+        ignore_errors: yes

@@ -1,0 +1,11 @@
+- hosts: node
+  tasks:
+     - name: firstname
+       raw:  kumar >> /tmp/log
+       tags:
+         - firstname
+       ignore_errors: yes
+     - name: some second name
+       raw: echo kirann >> /tmp/log2
+       tags:
+         - secondname

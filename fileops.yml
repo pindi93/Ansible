@@ -1,0 +1,17 @@
+- hosts: node
+  become: yes
+  tasks:
+     - name: create a file
+       file:
+         path: "/home/ansadmn/devops.txt"
+         state: touch
+     - name: place the contents inside the file
+       copy: 
+         dest: "/home/ansadmn/devops.txt"
+         content: |
+            Hi Adding the first line
+     - name: change permissions and ownership of file
+       file:
+         path: "/home/ansadmn/devops.txt"
+         mode: 0777
+         owner: kumar

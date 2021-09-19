@@ -1,0 +1,15 @@
+x=5
+
+y= $x+5
+
+
+
+
+tasks:
+
+  - task1
+    register: x
+
+  - task2
+    debug: var=x
+

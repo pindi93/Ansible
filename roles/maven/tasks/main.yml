@@ -1,0 +1,33 @@
+ - name: install git 
+   yum: name=git state=present
+
+ - name: install java
+   yum: name=java-1.8.0-openjdk state=present
+
+ - name: download directory
+   file:
+     path: '{{ maven_home_parent_directory }}'
+     state: directory
+     mode: 0755
+
+ - name: chacking if maven is already installed
+   stat:
+     path: '{{ maven_home_parent_directory }}/apache-maven-{{ maven_version }}'
+
+   register: maven_installed
+
+ - name: download maven binaries
+   get_url: 
+     url: '{{ maven_download_url }}'
+     dest: '{{ maven_home_parent_directory }}/{{ maven_file_name}}'
+   when: maven_installed.stat.exists != True  
+   ignore_errors: yes
+ 
+
+ - name: unarchive maven binaries
+   unarchive:
+      src: '{{ maven_home_parent_directory }}/{{ maven_file_name }}'
+      dest: '{{ maven_home_parent_directory }}'
+      copy: no
+   when: maven_installed.stat.exists != True
+ 

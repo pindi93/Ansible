@@ -1,0 +1,3 @@
+    - name: task for the dev role
+      command: echo {{ my_name }}
+      notify: dev handler

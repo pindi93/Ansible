@@ -1,0 +1,12 @@
+- hosts: node
+  tasks:
+     - name: create multiple files using loops
+       file: 
+         path: "/home/ansadmn/{{ item }}"
+         state: touch
+         mode: 0755
+       with_items:
+          - access.log
+          - config.conf
+          - systemd.log
+
